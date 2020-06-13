@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "936694143166",
+    "firebase_url": "https://stove-dev.firebaseio.com",
+    "project_id": "stove-dev",
+    "storage_bucket": "stove-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936694143166:android:e171c7c0a2e1ae6d7ea6ef",
+        "android_client_info": {
+          "package_name": "com.rnlivestream"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936694143166-a1hb1anfs3hhn329kb78uqll71plfk8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rnlivestream",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "936694143166-jh4uhtu20d0m87m34undsnev1suii5sr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA__EI4_GTgVXQtxy3inHe_OJqwO7NiPo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936694143166-jh4uhtu20d0m87m34undsnev1suii5sr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
