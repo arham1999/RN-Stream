@@ -1,69 +1,68 @@
-import firebase from "firebase";
-import "firebase/firestore";
+import firebase from "@react-native-firebase/app";
+import firestore from "@react-native-firebase/firestore";
+import auth from "@react-native-firebase/auth";
 import { firebaseCredentials } from "../constants/credentials";
-import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin';
+import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 
-firebase.initializeApp(firebaseCredentials);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseCredentials);
+}
 
 export const firebaseGoogleLogin = async () => {
-
     try {
-        // add any configuration settings here:
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
-        let userAllowed = ['farrukhehsan444@gmail.com', 'arhamawan99@gmail.com'];
-        // await firebase.firestore().collection('userAllowed').doc('users').get();
-        if(userAllowed.find(email => userInfo.user.email === email)) {
-            return userInfo.user.email
+        const credential = auth.GoogleAuthProvider.credential(userInfo.idToken, userInfo.accessToken)
+        await auth().signInWithCredential(credential);
+        let userAllowed = await firestore().collection('userAllowed').doc('users').get();
+        if (userAllowed.data().users.find(email => userInfo.user.email === email)) {
+            return {
+                name: userInfo.user.name,
+                email: userInfo.user.email
+            }
         }
-        // this.setState({ userInfo: userInfo, loggedIn: true });
-        // let tokens = await GoogleSignin.getTokens();
-        // create a new firebase credential with the token
-        // const credential = firebase.auth.GoogleAuthProvider.credential(tokens.idToken, tokens.accessToken)
-        // // login with credential
-        // const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
-        // console.log('firebaseUserCredential', firebaseUserCredential)
-        // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
+        else {
+            await signOut();
+            return null
+        }
     } catch (error) {
-        console.log(error)
+        console.log(error);
         if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-            // user cancelled the login flow
             console.log("user cancelled the login flow");
-        } else if (error.code === statusCodes.IN_PROGRESS) {
-            // operation (f.e. sign in) is in progress already
+        }
+        else if (error.code === statusCodes.IN_PROGRESS) {
             console.log("operation (f.e. sign in) is in progress already");
-        } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-            // play services not available or outdated
+        }
+        else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
             console.log("play services not available or outdated");
-        } else {
-            // some other error happened
+        }
+        else {
             console.log("some other error happened");
         }
     }
 }
 
 export const getCurrentUserInfo = async () => {
-    try {
-        const userInfo = await GoogleSignin.signInSilently();
-        // this.setState({ userInfo });
-    } catch (error) {
-        if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-            // user has not signed in yet
-            console.log("user has not signed in yet");
-            this.setState({ loggedIn: false });
-        } else {
-            // some other error
-            console.log("some other error happened");
-            this.setState({ loggedIn: false });
-        }
-    }
+    return GoogleSignin.signInSilently();
 };
+
+export const checkAccessKey = async (accessKey) => {
+    let reqEvent = await firestore().collection("events").where("accessPin", "==", accessKey).get();
+    if (reqEvent.empty) {
+        return null;
+    }
+    let link;
+    reqEvent.forEach(res => {
+        link = res.data().rtmpLink;
+    });
+    return link;
+}
 
 export const signOut = async () => {
     try {
         await GoogleSignin.revokeAccess();
         await GoogleSignin.signOut();
-        // this.setState({ user: null, loggedIn: false }); // Remember to remove the user from your app's state as well
+        await auth().signOut();
     } catch (error) {
         console.error(error);
     }

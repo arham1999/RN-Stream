@@ -1,13 +1,8 @@
 import React, { useRef, useState } from 'react';
-import {
-    View,
-    Text,
-    PermissionsAndroid,
-    Button
-} from 'react-native';
+import { View, Text, PermissionsAndroid, Button } from 'react-native';
 import { NodeCameraView } from 'react-native-nodemediaclient';
 
-const Stream = () => {
+const Stream = ({ route }) => {
 
     const requestCameraPermission = async () => {
         try {
@@ -24,7 +19,8 @@ const Stream = () => {
             );
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
                 console.log("You can use the camera");
-            } else {
+            } 
+            else {
                 console.log("Camera permission denied");
             }
         } catch (err) {
@@ -35,12 +31,13 @@ const Stream = () => {
     let [isPublish, setPublish] = useState(false);
     let [publishBtnTitle, setPublishBtnTitle] = useState('Start Publish');
     let vb = useRef(null);
+
     return (
         <>
             <NodeCameraView
                 style={{ flex: 1 }}
                 ref={vb}
-                outputUrl=""//rtmp://rtmp-global.cloud.vimeo.com/live/72d5b45f-15a9-49d4-acb4-a969e33c4e12
+                outputUrl={"rtmp://rtmp-global.cloud.vimeo.com/live/72d5b45f-15a9-49d4-acb4-a969e33c4e12"}// route.params.rtmpLink
                 camera={{ cameraId: 1, cameraFrontMirror: true }}
                 audio={{ bitrate: 32000, profile: 1, samplerate: 44100 }}
                 video={{ preset: 1, bitrate: 500000, profile: 1, fps: 15, videoFrontMirror: false }}

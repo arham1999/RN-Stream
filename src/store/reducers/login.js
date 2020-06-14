@@ -1,14 +1,13 @@
 import Constants from "../constants";
 
 const initialState = {
-  isLogin: false,
-  user: false
+  user: null
 };
 
 export const loginReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case Constants.User.LOGIN_USER_DATA:
-      return { ...state, user: payload, isLogin: true };
+      return { ...state, user: payload };
     case Constants.User.LOGOUT:
       return initialState;
     default:
