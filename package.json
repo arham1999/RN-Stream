@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "dev": "cross-env BABEL_ENV=development react-native run-android",
-    "prod": "cross-env BABEL_ENV=production react-native run-android",
     "ios": "react-native run-ios",
+    "dev": "node scripts/set-environment.js development && react-native start",
+    "prod": "node scripts/set-environment.js production && react-native start",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
@@ -37,7 +37,6 @@
     "@babel/runtime": "^7.10.2",
     "@react-native-community/eslint-config": "^2.0.0",
     "babel-jest": "^26.0.1",
-    "cross-env": "^7.0.2",
     "eslint": "^7.2.0",
     "jest": "^26.0.1",
     "metro-react-native-babel-preset": "^0.59.0",

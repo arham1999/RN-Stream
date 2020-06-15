@@ -1,11 +1,16 @@
 import firebase from "@react-native-firebase/app";
-import firestore from "@react-native-firebase/firestore";
+import "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import { firebaseCredentials } from "../constants/credentials";
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
+import { NODE_ENV } from "../../env.json";
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseCredentials);
+if (firebase.apps.length <= 2) {
+    if (firebase.apps.find(e => e.name === NODE_ENV) === undefined) {
+        firebase.initializeApp(firebaseCredentials, {
+            name: NODE_ENV
+        });
+    }
 }
 
 export const firebaseGoogleLogin = async () => {
@@ -14,7 +19,7 @@ export const firebaseGoogleLogin = async () => {
         const userInfo = await GoogleSignin.signIn();
         const credential = auth.GoogleAuthProvider.credential(userInfo.idToken, userInfo.accessToken)
         await auth().signInWithCredential(credential);
-        let userAllowed = await firestore().collection('userAllowed').doc('users').get();
+        let userAllowed = await firebase.app(NODE_ENV).firestore().collection('userAllowed').doc('users').get();
         if (userAllowed.data().users.find(email => userInfo.user.email === email)) {
             return {
                 name: userInfo.user.name,
@@ -47,8 +52,8 @@ export const getCurrentUserInfo = async () => {
 };
 
 export const checkAccessKey = async (accessKey) => {
-    let reqEvent = await firestore().collection("events").where("accessPin", "==", accessKey).get();
-    if (reqEvent.empty) {
+    let reqEvent = await firebase.app(NODE_ENV).firestore().collection("events").where("accessPin", "==", accessKey).get();
+    if(reqEvent.empty) {
         return null;
     }
     let link;
