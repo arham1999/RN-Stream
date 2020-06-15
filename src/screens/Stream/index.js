@@ -37,14 +37,13 @@ const Stream = ({ route }) => {
             <NodeCameraView
                 style={{ flex: 1 }}
                 ref={vb}
-                outputUrl={"rtmp://rtmp-global.cloud.vimeo.com/live/72d5b45f-15a9-49d4-acb4-a969e33c4e12"}// route.params.rtmpLink
+                outputUrl={route.params.rtmpLink}
                 camera={{ cameraId: 1, cameraFrontMirror: true }}
                 audio={{ bitrate: 32000, profile: 1, samplerate: 44100 }}
                 video={{ preset: 1, bitrate: 500000, profile: 1, fps: 15, videoFrontMirror: false }}
                 smoothSkinLevel={3}
                 autopreview={true}
             />
-
             <Button title="request permissions" onPress={requestCameraPermission} />
             <Button
                 onPress={() => {
