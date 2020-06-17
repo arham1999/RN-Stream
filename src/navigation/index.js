@@ -6,7 +6,7 @@ const Navigation = () => {
     const Stack = createStackNavigator();
 
     return (
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Stream">
             <Stack.Screen name="Login" component={Screens.Login} options={{
                 title: 'Login',
                 headerStyle: {
