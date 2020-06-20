@@ -3,7 +3,7 @@ import { screenWidth, screenHeight } from '../../constants/screen';
 
 export default StyleSheet.create({
     CameraContainer: {
-        height: screenHeight / 2.2
+        height: screenHeight / 2.5
     },
     CameraView: {
         flex: 1

@@ -57,10 +57,12 @@ export const checkAccessKey = async (accessKey) => {
         return null;
     }
     let link;
+    let streamId;
     reqEvent.forEach(res => {
         link = res.data().rtmpLink;
+        streamId = res.data().vimeoId
     });
-    return link;
+    return { link, streamId };
 }
 
 export const signOut = async () => {

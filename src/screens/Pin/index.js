@@ -15,12 +15,12 @@ const Pin = ({ navigation }) => {
             return Alert.alert('Error', 'Please write access key');
         }
         setLoader(true);
-        let link = await checkAccessKey(accessKey);
+        let obj = await checkAccessKey(accessKey);
         setLoader(false);
-        if (link === null) {
+        if (obj.link === null) {
             return Alert.alert('Error', 'Access key is invalid');
         }
-        navigation.push('Stream', { rtmpLink: link });
+        navigation.push('Stream', { rtmpLink: obj.link, streamId: obj.streamId });
     }
 
     const signUserOut = async () => {

@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "dev": "node scripts/set-environment.js development && react-native start",
     "prod": "node scripts/set-environment.js production && react-native start",
-    "build": "node scripts/set-environment.js production && cd android && gradlew assembleRelease",
+    "build": "node scripts/set-environment.js development && cd android && gradlew assembleRelease",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
@@ -19,6 +19,8 @@
     "@react-native-firebase/firestore": "^7.1.7",
     "@react-navigation/native": "^5.5.1",
     "@react-navigation/stack": "^5.5.1",
+    "babel-runtime": "^6.26.0",
+    "events": "^3.1.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-gesture-handler": "^1.6.1",
@@ -33,7 +35,8 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "twilio-chat": "^3.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
