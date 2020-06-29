@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, ImageBackground, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { checkAccessKey, signOut } from '../../config/firebase';
-import { logout } from "../../store/actions/login";
+import { logout, loginUserData } from "../../store/actions/login";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles";
 
@@ -17,19 +17,26 @@ const Pin = ({ navigation }) => {
         setLoader(true);
         let obj = await checkAccessKey(accessKey);
         setLoader(false);
-        if (obj.link === null) {
+        if (obj === null || obj.link === null) {
             return Alert.alert('Error', 'Access key is invalid');
         }
         navigation.push('Stream', { rtmpLink: obj.link, streamId: obj.streamId });
     }
 
-    const signUserOut = async () => {
-        setLoader(true);
-        await signOut();
-        dispatch(logout());
-        setLoader(false);
-        navigation.replace("Login");
-    }
+    // const signUserOut = async () => {
+    //     setLoader(true);
+    //     await signOut();
+    //     dispatch(logout());
+    //     setLoader(false);
+    //     navigation.replace("Login");
+    // }
+
+    useEffect(() => {
+        dispatch(loginUserData({
+            name: "Farrukh Ehsan",
+            email: "farrukhtest@gmail.com"
+        }));
+    }, [])
 
     return (
         <ImageBackground source={require('../../assets/background.gif')} style={styles.BackgroundImage}>
@@ -39,9 +46,9 @@ const Pin = ({ navigation }) => {
                     <TouchableOpacity activeOpacity={0.5} style={styles.StreamButton} onPress={validateAccessKey}>
                         <Text style={styles.ButtonText}>Start Streaming</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.5} style={styles.LoginButton} onPress={signUserOut}>
+                    {/* <TouchableOpacity activeOpacity={0.5} style={styles.LoginButton} onPress={signUserOut}>
                         <Text style={styles.ButtonText}>Logout</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </> : <ActivityIndicator size={50} color="red" style={{ marginTop: 30 }} />}
             </View>
         </ImageBackground>

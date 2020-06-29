@@ -6,7 +6,7 @@ const Navigation = () => {
     const Stack = createStackNavigator();
 
     return (
-        <Stack.Navigator initialRouteName="Stream">
+        <Stack.Navigator initialRouteName="Pin">
             <Stack.Screen name="Login" component={Screens.Login} options={{
                 title: 'Login',
                 headerStyle: {
@@ -33,6 +33,18 @@ const Navigation = () => {
             }} />
             <Stack.Screen name="Stream" component={Screens.Stream} options={{
                 title: 'Stream',
+                headerStyle: {
+                    backgroundColor: '#f37c76',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    fontSize: 21
+                },
+                headerTitleAlign: 'center'
+            }} />
+            <Stack.Screen name="Chat" component={Screens.Chat} options={{
+                title: 'Chat',
                 headerStyle: {
                     backgroundColor: '#f37c76',
                 },

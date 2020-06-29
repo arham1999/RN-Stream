@@ -157,9 +157,9 @@ android {
         }
         release {
             storeFile file('release.keystore')
-            storePassword 'release'
-            keyAlias 'release-alias'
-            keyPassword 'release'
+            storePassword 'stovecook'
+            keyAlias 'stove-cook-alias'
+            keyPassword 'stovecook'
         }
     }
     buildTypes {

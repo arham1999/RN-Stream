@@ -13,9 +13,10 @@ const Login = ({ navigation }) => {
 
     useEffect(() => {
         GoogleSignin.configure({
+            scopes: ['https://www.googleapis.com/auth/drive.readonly'],
             webClientId: '936694143166-jh4uhtu20d0m87m34undsnev1suii5sr.apps.googleusercontent.com',
             offlineAccess: true,
-            forceConsentPrompt: true,
+            forceCodeForRefreshToken: true
             // accountName: 'Stover'
         });
     }, [])

@@ -1,21 +1,18 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { screenWidth, screenHeight } from '../../constants/screen';
 
 export default StyleSheet.create({
     CameraContainer: {
-        height: screenHeight / 2.5
+        height: '100%'
     },
     CameraView: {
         flex: 1
-    },
-    ButtonContainer: {
-        flexDirection: 'row'
     },
     CameraButton: {
         alignItems: 'center',
         justifyContent: 'center',
         height: 35,
-        width: screenWidth / 2
+        width: screenWidth
     },
     ButtonText: {
         color: 'white',
@@ -23,7 +20,11 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         textTransform: 'uppercase'
     },
-    TabViewInitialLayout: {
-        width: screenWidth        
+    chatOverlay: { 
+        padding: 10, 
+        position: 'absolute', 
+        bottom: 0, 
+        marginBottom: 80 ,
+        width: screenWidth
     }
 });
